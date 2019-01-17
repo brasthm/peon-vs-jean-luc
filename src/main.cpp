@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "Input.hpp"
 
 int main()
 {
@@ -12,6 +13,10 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+		Input::instance().waitForConnection();
+		if (Input::instance().getConnectedPlayer() == 3)
+			Input::tracePressedButton();
+
 		window.clear(sf::Color::Black);
 		window.display();
 	}
