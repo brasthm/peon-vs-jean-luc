@@ -13,8 +13,9 @@ class Input {
 	private:
 		std::vector<int> connected_;
 		std::map<std::string, std::map<std::string, std::string>> gamePadMap_;
-	public:
+
 		Input();
+	public:
 		void waitForConnection();
 		static Input &instance();
 		int const getConnectedPlayer();
@@ -25,6 +26,5 @@ class Input {
 		void parseGamePadDB(std::string name);
 };
 
-static Input inputInstance;
 
 #endif // !INPUT_H

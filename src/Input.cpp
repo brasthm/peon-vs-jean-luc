@@ -37,7 +37,8 @@ void Input::waitForConnection()
 
 Input & Input::instance()
 {
-	return inputInstance;
+	static Input instance;
+	return instance;
 }
 
 int const Input::getConnectedPlayer()

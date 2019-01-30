@@ -19,11 +19,6 @@ int main()
 
 		//Input::instance().tracePressedButton();
 
-		int position = Input::instance().getAxisPosition(0, "rightx");
-		if (position != 0)
-			std::cout << "Joueur 1 : " << position << std::endl;
-
-
 		for (size_t i = 0; i < Input::instance().getConnectedPlayer(); i++)
 		{
 			if (Input::instance().isButtonPressed(i, "a"))
@@ -42,6 +37,30 @@ int main()
 				std::cout << "Joueur " << i << " : L2" << std::endl;
 			if (Input::instance().isButtonPressed(i, "righttrigger"))
 				std::cout << "Joueur " << i << " : R2" << std::endl;
+			if (Input::instance().isButtonPressed(i, "start"))
+				std::cout << "Joueur " << i << " : Start" << std::endl;
+			if (Input::instance().isButtonPressed(i, "back"))
+				std::cout << "Joueur " << i << " : Back" << std::endl;
+			if (Input::instance().isButtonPressed(i, "leftstick"))
+				std::cout << "Joueur " << i << " : Left stick click" << std::endl;
+			if (Input::instance().isButtonPressed(i, "rightstick"))
+				std::cout << "Joueur " << i << " : Right stick click" << std::endl;
+
+			int position;
+
+			position = Input::instance().getAxisPosition(i, "rightx");
+			if (abs(position) > 10)
+				std::cout << "Joueur " << i << " : Joystick Droit X - " << position << std::endl;
+			position = Input::instance().getAxisPosition(i, "righty");
+			if (abs(position) > 10)
+				std::cout << "Joueur " << i << " : Joystick Droit Y - " << position << std::endl;
+
+			position = Input::instance().getAxisPosition(i, "leftx");
+			if (abs(position) > 10)
+				std::cout << "Joueur " << i << " : Joystick Gauche X - " << position << std::endl;
+			position = Input::instance().getAxisPosition(i, "lefty");
+			if (abs(position) > 10)
+				std::cout << "Joueur " << i << " : Joystick Gauche Y - " << position << std::endl;
 		}
 
 		window.clear(sf::Color::Black);
