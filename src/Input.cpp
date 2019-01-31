@@ -61,6 +61,21 @@ void Input::tracePressedButton()
 	}
 }
 
+void Input::traceJoystick()
+{
+	for (int i = 0; i < sf::Joystick::Count; i++)
+	{
+		if (sf::Joystick::isConnected(i))
+		{
+			for (int joystick = 0; joystick < sf::Joystick::AxisCount; joystick++)
+			{
+				if (sf::Joystick::isButtonPressed(i, joystick))
+					std::cout << "Button " << joystick << " pressed on controller " << i << std::endl;
+			}
+		}
+	}
+}
+
 sf::Joystick::Axis Input::SDL2SFML(std::string axis)
 {
 	if (axis[0] == 'a')
