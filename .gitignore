@@ -382,3 +382,8 @@ healthchecksdb
 
 PeonVSJeanLuc/
 Visual_Peon_Vs_jeanLuc/
+
+
+#Cmake
+cmake-build-debug
+bin

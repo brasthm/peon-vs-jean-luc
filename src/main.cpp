@@ -5,7 +5,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Péon vs Jean Luc");
+	sf::RenderWindow window(sf::VideoMode(800, 600), "PÃ©on vs Jean Luc");
 
 	while (window.isOpen())
 	{
