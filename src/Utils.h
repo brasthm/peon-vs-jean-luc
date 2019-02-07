@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <SFML/Graphics.hpp>
 
 namespace Utils
 {
@@ -15,6 +16,7 @@ namespace Utils
 	}
 
 	std::vector<std::string> split(const std::string& str, const std::string& sep = " ");
+	sf::Vector2f normalize(sf::Vector2f vect);
 }
 
 #endif // !UTILS_H

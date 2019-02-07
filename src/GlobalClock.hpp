@@ -8,29 +8,33 @@
 
 class GlobalClock
 {
-    public:
-        GlobalClock() = default;
-        sf::Time restart() noexcept;
-        sf::Time frameTime() const noexcept;
-        void stop() noexcept;
-        void start() noexcept;
-        void changeSpeed(double speed) noexcept;
-        sf::Time timeSinceStartup() const noexcept;
-        
-        void executeIn(sf::Time delay, std::function<void()> fun);
-        
-        static GlobalClock& getClock();
-        
+public:
+	GlobalClock(GlobalClock const&) = delete;
+	GlobalClock(GlobalClock&&) = delete;
+	GlobalClock& operator=(GlobalClock const&) = delete;
+	GlobalClock& operator=(GlobalClock&&) = delete;
 
-    private:
-        sf::Clock clock;
-        sf::Time frame = sf::Time::Zero;
-        sf::Time global = sf::Time::Zero;
-        double factor = 1;
-        bool running = true;
-        std::vector<std::pair<sf::Time, std::function<void()>>> callbacks;
+	static sf::Time lap() noexcept;
+	static sf::Time lapTime() noexcept;
+	static void stop() noexcept;
+	static void start() noexcept;
+	static void changeSpeed(double speed) noexcept;
+	static sf::Time timeSinceStartup() noexcept;
+
+	static void executeIn(sf::Time delay, std::function<void()> fun);
+
+
+private:
+	GlobalClock() = default;
+
+	static GlobalClock& getInstance();
+
+	sf::Clock clock;
+	sf::Time frame = sf::Time::Zero;
+	sf::Time global = sf::Time::Zero;
+	double factor = 1;
+	bool running = true;
+	std::vector<std::pair<sf::Time, std::function<void()>>> callbacks;
 };
-
-static GlobalClock instance;
 
 #endif // GLOBALCLOCK_HPP

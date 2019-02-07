@@ -2,10 +2,15 @@
 #include <iostream>
 
 #include "Input.hpp"
+#include "Peon.h"
+#include "GlobalClock.hpp"
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Péon vs Jean Luc");
+	Peon peon;
+
+	GlobalClock::start();
 
 	while (window.isOpen())
 	{
@@ -71,8 +76,11 @@ int main()
 			if (abs(position) > 10)
 				std::cout << "Joueur " << i << " : R2 - " << position << std::endl;
 		}
+		GlobalClock::lap();
+		peon.update();
 
 		window.clear(sf::Color::Black);
+		peon.draw(window);
 		window.display();
 	}
 
