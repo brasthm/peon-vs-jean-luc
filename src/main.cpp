@@ -17,9 +17,10 @@ int main()
 		}
 		Input::instance().waitForConnection();
 
-		Input::instance().tracePressedButton();
+		//Input::instance().tracePressedButton();
+		//Input::instance().traceJoystick();
 
-		/*for (size_t i = 0; i < Input::instance().getConnectedPlayer(); i++)
+		for (size_t i = 0; i < Input::instance().getConnectedPlayer(); i++)
 		{
 			if (Input::instance().isButtonPressed(i, "a"))
 				std::cout << "Joueur " << i << " : A" << std::endl;
@@ -61,7 +62,15 @@ int main()
 			position = Input::instance().getAxisPosition(i, "lefty");
 			if (abs(position) > 10)
 				std::cout << "Joueur " << i << " : Joystick Gauche Y - " << position << std::endl;
-		}*/
+
+			position = Input::instance().getAxisPosition(i, "lefttrigger");
+			if (abs(position) > 10)
+				std::cout << "Joueur " << i << " : L2 - " << position << std::endl;
+
+			position = Input::instance().getAxisPosition(i, "righttrigger");
+			if (abs(position) > 10)
+				std::cout << "Joueur " << i << " : R2 - " << position << std::endl;
+		}
 
 		window.clear(sf::Color::Black);
 		window.display();

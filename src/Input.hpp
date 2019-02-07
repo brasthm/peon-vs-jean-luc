@@ -21,7 +21,6 @@ class Input {
 		int const getConnectedPlayer();
 		static void tracePressedButton();
 		static void traceJoystick();
-		static sf::Joystick::Axis SDL2SFML(std::string axis);
 		int getAxisPosition(int player, std::string button);
 		bool isButtonPressed(int player, std::string button);
 		void parseGamePadDB(std::string name);

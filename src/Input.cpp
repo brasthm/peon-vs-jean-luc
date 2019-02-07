@@ -69,32 +69,12 @@ void Input::traceJoystick()
 		{
 			for (int joystick = 0; joystick < sf::Joystick::AxisCount; joystick++)
 			{
-				if (sf::Joystick::isButtonPressed(i, joystick))
-					std::cout << "Button " << joystick << " pressed on controller " << i << std::endl;
+				if (sf::Joystick::hasAxis(i, static_cast<sf::Joystick::Axis>(joystick)))
+					if(abs(sf::Joystick::getAxisPosition(i, static_cast<sf::Joystick::Axis>(joystick))) > 10)
+						std::cout << "Joystick " << joystick << " moved on controller " << i << std::endl;
 			}
 		}
 	}
-}
-
-sf::Joystick::Axis Input::SDL2SFML(std::string axis)
-{
-	if (axis[0] == 'a')
-	{
-		switch (axis[1])
-		{
-			case '0':
-				return sf::Joystick::Axis::X;
-			case '1':
-				return sf::Joystick::Axis::Y;
-			case '2':
-				return sf::Joystick::Axis::U;
-			case '3':
-				return sf::Joystick::Axis::V;
-			case '4':
-				return sf::Joystick::Axis::R;
-		}
-	}
-	return sf::Joystick::Axis();
 }
 
 int Input::getAxisPosition(int player, std::string button)
@@ -130,6 +110,7 @@ void Input::parseGamePadDB(std::string name)
 	if (gamePadMap_.find(name) == gamePadMap_.end())
 	{
 		std::ifstream fichier("../../rc/gamepadDB.txt", std::ios::in);
+		bool found = false;
 
 		if (!fichier) {
 			std::cerr << "rc/gamepadDB not found" << std::endl;
@@ -141,6 +122,7 @@ void Input::parseGamePadDB(std::string name)
 		{
 			if (ligne.find(name) != std::string::npos)
 			{
+				found = true;
 				auto controls = Utils::split(ligne, ",");
 
 				for (size_t i = 2; i < controls.size() - 2; i++)
@@ -150,6 +132,26 @@ void Input::parseGamePadDB(std::string name)
 					std::cout << name << " " << elem[0] << " " << gamePadMap_[name][elem[0]] << std::endl;
 				}
 			}
+		}
+
+		if (!found)
+		{
+			gamePadMap_[name]["a"] = "b0";
+			gamePadMap_[name]["b"] = "b1";
+			gamePadMap_[name]["x"] = "b2";
+			gamePadMap_[name]["y"] = "b3";
+			gamePadMap_[name]["leftshoulder"] = "b4";
+			gamePadMap_[name]["rightshoulder"] = "b5";
+			gamePadMap_[name]["back"] = "b6";
+			gamePadMap_[name]["start"] = "b7";
+			gamePadMap_[name]["leftstick"] = "b8";
+			gamePadMap_[name]["rightstick"] = "b9";
+			gamePadMap_[name]["leftx"] = "a0";
+			gamePadMap_[name]["lefty"] = "a1";
+			gamePadMap_[name]["lefttrigger"] = "a2";
+			gamePadMap_[name]["righttrigger"] = "a3";
+			gamePadMap_[name]["rightx"] = "a4";
+			gamePadMap_[name]["righty"] = "a5";
 		}
 
 	}
