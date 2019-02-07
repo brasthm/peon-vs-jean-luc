@@ -8,7 +8,7 @@
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Péon vs Jean Luc");
-	Peon peon;
+	Peon peon, jeanLuc;
 
 	GlobalClock::start();
 
@@ -20,7 +20,12 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		Input::instance().waitForConnection();
+		int connected = Input::instance().waitForConnection();
+
+		if (connected == 1)
+			peon.connectPlayer(0);
+		if (connected == 2)
+			jeanLuc.connectPlayer(1);
 
 		//Input::instance().tracePressedButton();
 		//Input::instance().traceJoystick();
@@ -78,9 +83,11 @@ int main()
 		}
 		GlobalClock::lap();
 		peon.update();
+		jeanLuc.update();
 
 		window.clear(sf::Color::Black);
 		peon.draw(window);
+		jeanLuc.draw(window);
 		window.display();
 	}
 

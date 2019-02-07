@@ -16,11 +16,12 @@ class Input {
 
 		Input();
 	public:
-		void waitForConnection();
+		int waitForConnection();
 		static Input &instance();
 		int const getConnectedPlayer();
 		static void tracePressedButton();
 		static void traceJoystick();
+		static void traceConnectedPlayer();
 		int getAxisPosition(int player, std::string button);
 		bool isButtonPressed(int player, std::string button);
 		void parseGamePadDB(std::string name);

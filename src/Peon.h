@@ -14,7 +14,7 @@ class Peon
 		Peon();
 		void draw(sf::RenderWindow &window);
 		void update();
-		//void connectPlayer(int id);
+		void connectPlayer(int id);
 };
 
 

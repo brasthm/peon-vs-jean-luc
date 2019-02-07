@@ -15,8 +15,9 @@ Input::Input()
 
 }
 
-void Input::waitForConnection()
+int Input::waitForConnection()
 {
+	int connectedPlayer = -1;
 	for (int i = 0; i < sf::Joystick::Count; i++)
 	{
 		if (!Utils::contains(connected_, i) && sf::Joystick::isConnected(i))
@@ -29,10 +30,12 @@ void Input::waitForConnection()
 					std::cout << "Player " << connected_.size() << " connected (controller " << i << ")" << std::endl;
 					std::cout << "identification { name : " << sf::Joystick::getIdentification(i).name.toAnsiString()<<", productId : " << sf::Joystick::getIdentification(i).productId <<", manufaturerId : " << sf::Joystick::getIdentification(i).vendorId <<"}"<< std::endl;
 					parseGamePadDB(sf::Joystick::getIdentification(i).name.toAnsiString());
+					connectedPlayer = connected_.size();
 				}
 			}
 		}
 	}
+	return connectedPlayer;
 }
 
 Input & Input::instance()
