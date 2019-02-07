@@ -3,6 +3,8 @@
 #include "Utils.h"
 #include "GlobalClock.hpp"
 
+#include <utility>
+
 Peon::Peon()
 {
 	speed_ = 200;
@@ -24,10 +26,14 @@ void Peon::update()
 		sf::Vector2f v;
 		v.x = Input::instance().getAxisPosition(playerID_, "leftx");
 		v.y = Input::instance().getAxisPosition(playerID_, "lefty");
-		v = Utils::normalize(v);
+		sf::Vector2f vn = Utils::normalize(v);
 
-		x_ += speed_ * v.x * GlobalClock::lapTime().asSeconds();
-		y_ += speed_ * v.y * GlobalClock::lapTime().asSeconds();
+
+		float factor = std::max(abs(v.x), abs(v.y)) > 0.1 ? std::max(abs(v.x), abs(v.y)) / 100.f : 0;
+
+
+		x_ += factor * speed_ * vn.x * GlobalClock::lapTime().asSeconds();
+		y_ += factor * speed_ * vn.y * GlobalClock::lapTime().asSeconds();
 
 		rect_.setPosition(x_, y_);
 	}
